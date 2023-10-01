@@ -6,7 +6,7 @@ const Container = styled.div`
   margin: 0 auto;
   padding: 20px;
   text-align: center;
-  
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -41,8 +41,8 @@ const Button = styled.button`
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
-  margin-top:10px;
-  margin-left:30px;
+  margin-top: 10px;
+  margin-left: 30px;
 
   &:disabled {
     background-color: #ccc;
@@ -53,12 +53,12 @@ const Button = styled.button`
 const Response = styled.p`
   margin-top: 20px;
   font-size: 18px;
-  color: #333;
+  color: ${({ isError }) => (isError ? 'red' : '#333')};
 `;
 
 const Loading = styled.span`
   font-style: italic;
-  color: #007bff;
+  color: green; /* Change the color to green */
 `;
 
 function App() {
@@ -107,15 +107,14 @@ function App() {
           disabled={loading}
           placeholder="E.g., City or Place"
           required
+          autoComplete='off'
         />
         <br></br>
         <Button type="submit" disabled={loading}>
           Submit
         </Button>
       </form>
-      <Response>
-        {loading ? <Loading>{response}</Loading> : response}
-      </Response>
+      <Response isError={response.startsWith('I don\'t know')}>{loading ? <Loading>{response}</Loading> : response}</Response>
     </Container>
   );
 }
